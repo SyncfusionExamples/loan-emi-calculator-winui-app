@@ -1,0 +1,247 @@
+﻿<Window
+    x:Class="LoanEmiCalculator.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LoanEmiCalculator"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:editors="using:Syncfusion.UI.Xaml.Editors"
+    xmlns:sliders="using:Syncfusion.UI.Xaml.Sliders"
+    xmlns:charts="using:Syncfusion.UI.Xaml.Charts"
+    mc:Ignorable="d">
+
+    <Border BorderThickness="70" BorderBrush="#162137">
+        <Border.Resources>
+            <SolidColorBrush x:Key="SyncfusionNumberBoxBackground"
+                             Color="#3a4360" />
+            <SolidColorBrush x:Key="SyncfusionNumberBoxBorderBrush"
+                             Color="#485274" />
+            <SolidColorBrush x:Key="SyncfusionNumberBoxBackgroundFocused"
+                             Color="#3a4360" />
+            <SolidColorBrush x:Key="SyncfusionNumberBoxBackgroundPointerOver"
+                             Color="#3a4360" />
+            <LinearGradientBrush x:Key="BlueGradientBursh">
+                <GradientStop Offset="1" Color="#39c8db"/>
+                <GradientStop Offset="0" Color="#5a69aa"/>
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="OrangeGradientBrush">
+                <GradientStop Offset="1" Color="#e97c11"/>
+                <GradientStop Offset="0" Color="#fb6588"/>
+            </LinearGradientBrush>
+        </Border.Resources>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" Foreground="#e7e7e7">Loan Amount</TextBlock>
+                    <editors:SfNumberBox
+                        Grid.Column="1"
+                        x:Name="loanAmountNumberBox"
+                        Width="200"
+                        Height="40"
+                        UpDownPlacementMode="Inline"
+                        Minimum="0"
+                        Maximum="500000"
+                        Value="320000"
+                        CornerRadius="5"
+                        CustomFormat="#$000,000"/>
+                </Grid>
+                <sliders:SfSlider
+                    Grid.Row="1"
+                    x:Name="loanAmountSlider"
+                    ShowTicks="True"
+                    ShowLabels="True"
+                    ActiveTrackHeight="8"
+                    InactiveTrackHeight="8"
+                    StepFrequency="10000"
+                    Interval="100000"
+                    Minimum="{Binding ElementName=loanAmountNumberBox, Path=Minimum}"
+                    Maximum="{Binding ElementName=loanAmountNumberBox, Path=Maximum}"
+                    Value="{Binding ElementName=loanAmountNumberBox, Path=Value, Mode=TwoWay}"
+                    ValueChanged="slider_ValueChanged"
+                    />
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" Foreground="#e7e7e7">Interest Rate</TextBlock>
+                    <editors:SfNumberBox
+                        Grid.Column="1"
+                        x:Name="rateOfInterestNumberBox"
+                        Width="200"
+                        Height="40"
+                        UpDownPlacementMode="Inline"
+                        Minimum="0"
+                        Maximum="20"
+                        Value="6.5"
+                        CornerRadius="5"
+                        CustomFormat="#0.00\%"/>
+                </Grid>
+                <sliders:SfSlider
+                    Grid.Row="3"
+                    x:Name="rateOfInterestSlider"
+                    ShowTicks="True"
+                    ShowLabels="True"
+                    ActiveTrackHeight="8"
+                    InactiveTrackHeight="8"
+                    StepFrequency="0.5"
+                    Interval="5"
+                    Minimum="{Binding ElementName=rateOfInterestNumberBox, Path=Minimum}"
+                    Maximum="{Binding ElementName=rateOfInterestNumberBox, Path=Maximum}"
+                    Value="{Binding ElementName=rateOfInterestNumberBox, Path=Value, Mode=TwoWay}"
+                    ValueChanged="slider_ValueChanged"
+                    />
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" Foreground="#e7e7e7">Loan term in years</TextBlock>
+                    <editors:SfNumberBox
+                        Grid.Column="1"
+                        x:Name="numberOfYearsNumberBox"
+                        Width="200"
+                        Height="40"
+                        UpDownPlacementMode="Inline"
+                        Minimum="1"
+                        Maximum="40"
+                        Value="14"
+                        CornerRadius="5"
+                        CustomFormat="#0"/>
+                </Grid>
+                <sliders:SfSlider
+                    Grid.Row="5"
+                    x:Name="numberOfYearsSlider"
+                    ShowTicks="True"
+                    ShowLabels="True"
+                    ActiveTrackHeight="8"
+                    InactiveTrackHeight="8"
+                    StepFrequency="1"
+                    Interval="8"
+                    Minimum="{Binding ElementName=numberOfYearsNumberBox, Path=Minimum}"
+                    Maximum="{Binding ElementName=numberOfYearsNumberBox, Path=Maximum}"
+                    Value="{Binding ElementName=numberOfYearsNumberBox, Path=Value, Mode=TwoWay}"
+                    ValueChanged="slider_ValueChanged"
+                    />
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25">Break-up of Total Payment</TextBlock>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <charts:SfCircularChart
+                        Grid.Column="0"
+                        >
+                        <charts:DoughnutSeries
+                            x:Name="doughnutSeries"
+                            Palette="Custom"
+                            EnableAnimation="True"
+                            ListenPropertyChange="True"
+                            XBindingPath="ChartLable"
+                            YBindingPath="LableValue">
+                            <charts:DoughnutSeries.ColorModel>
+                                <charts:ChartColorModel>
+                                    <charts:ChartColorModel.CustomBrushes>
+                                        <LinearGradientBrush>
+                                            <GradientStop Offset="1" Color="#39c8db"/>
+                                            <GradientStop Offset="0" Color="#5a69aa"/>
+                                        </LinearGradientBrush>
+                                        <LinearGradientBrush>
+                                            <GradientStop Offset="1" Color="#e97c11"/>
+                                            <GradientStop Offset="0" Color="#fb6588"/>
+                                        </LinearGradientBrush>
+                                    </charts:ChartColorModel.CustomBrushes>
+                                </charts:ChartColorModel>
+                            </charts:DoughnutSeries.ColorModel>
+                        </charts:DoughnutSeries>
+                    </charts:SfCircularChart>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Path Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{StaticResource BlueGradientBursh}">
+                                    <Path.Data>
+                                        <EllipseGeometry Center="10,10" RadiusX="10" RadiusY="10"/>
+                                    </Path.Data>
+                                </Path>
+                                <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="20,0,0,0"
+                                           FontSize="15" Foreground="#929bd3">Principal Amount</TextBlock>
+                            </Grid>
+                            <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="principalTextBlock"/>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Path Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{StaticResource OrangeGradientBrush}">
+                                    <Path.Data>
+                                        <EllipseGeometry Center="10,10" RadiusX="10" RadiusY="10"/>
+                                    </Path.Data>
+                                </Path>
+                                <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="20,0,0,0"
+                                           FontSize="15" Foreground="#929bd3">Total Interest</TextBlock>
+                            </Grid>
+                            <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="totalInterestTextBlock"/>
+                        </Grid>
+                        <StackPanel Grid.Row="3">
+                            <TextBlock HorizontalAlignment="Center">Total Payment (Principal + Interest)</TextBlock>
+                            <TextBlock HorizontalAlignment="Center" x:Name="totalPaymentTextBlock"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center">Your Monthly EMI</TextBlock>
+                    <TextBlock x:Name="emiTextBlock" Grid.Row="1" FontSize="30" HorizontalAlignment="Center"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

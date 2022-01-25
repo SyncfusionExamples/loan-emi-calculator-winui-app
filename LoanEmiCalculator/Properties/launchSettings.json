@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "LoanEmiCalculator (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "LoanEmiCalculator (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
